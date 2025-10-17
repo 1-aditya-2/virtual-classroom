@@ -1,0 +1,249 @@
+{
+  "info": {
+    "name": "Virtual Classroom API Collection",
+    "_postman_id": "virtual-classroom-full"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:4000"
+    },
+    {
+      "key": "tutorToken",
+      "value": "jwtToken"
+    },
+    {
+      "key": "studentToken",
+      "value": "jwtToken"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth - Login (Tutor)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"username\": \"alice\", \"password\": \"123\", \"role\": \"tutor\"}"
+        },
+        "url": "{{baseUrl}}/auth/login"
+      }
+    },
+    {
+      "name": "Auth - Login (Student)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"username\": \"bob\", \"password\": \"123\", \"role\": \"student\"}"
+        },
+        "url": "{{baseUrl}}/auth/login"
+      }
+    },
+    {
+      "name": "Assignments - Create (Tutor)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tutorToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"Math Homework 1\", \"description\": \"Solve problems 1-10\", \"publishedAt\": \"2025-10-20T09:00:00Z\", \"deadline\": \"2025-10-25T23:59:59Z\", \"studentIds\": [2]}"
+        },
+        "url": "{{baseUrl}}/assignments"
+      }
+    },
+    {
+      "name": "Assignments - Update (Tutor)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tutorToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"Updated Math Homework 1\", \"description\": \"Updated problems list\", \"studentIds\": [2]}"
+        },
+        "url": "{{baseUrl}}/assignments/1"
+      }
+    },
+    {
+      "name": "Assignments - Delete (Tutor)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tutorToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/assignments/1"
+      }
+    },
+    {
+      "name": "Assignments - Get Details (Tutor)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tutorToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/assignments/1"
+      }
+    },
+    {
+      "name": "Assignments - Tutor Feed (All)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tutorToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/assignments/feed"
+      }
+    },
+    {
+      "name": "Assignments - Tutor Feed (Scheduled)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tutorToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/assignments/feed?publishedAt=SCHEDULED"
+      }
+    },
+    {
+      "name": "Assignments - Tutor Feed (Ongoing)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tutorToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/assignments/feed?publishedAt=ONGOING"
+      }
+    },
+    {
+      "name": "Submissions - Submit Assignment (Student)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"remark\": \"Here is my completed homework.\"}"
+        },
+        "url": "{{baseUrl}}/assignments/1/submit"
+      }
+    },
+    {
+      "name": "Submissions - Get Assignment Details (Student View)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/assignments/1"
+      }
+    },
+    {
+      "name": "Submissions - Student Feed (All)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/assignments/feed?status=ALL"
+      }
+    },
+    {
+      "name": "Submissions - Student Feed (Pending)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/assignments/feed?status=PENDING"
+      }
+    },
+    {
+      "name": "Submissions - Student Feed (Submitted)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/assignments/feed?status=SUBMITTED"
+      }
+    },
+    {
+      "name": "Submissions - Student Feed (Overdue)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{studentToken}}"
+          }
+        ],
+        "url": "{{baseUrl}}/assignments/feed?status=OVERDUE"
+      }
+    }
+  ]
+}
