@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS virtual_classroom;
-USE virtual_classroom;
+CREATE DATABASE IF NOT EXISTS classroom_db;
+USE classroom_db;
 
 CREATE TABLE IF NOT EXISTS users (
   id INT AUTO_INCREMENT PRIMARY KEY,
